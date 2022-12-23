@@ -14,7 +14,7 @@ class TaxInfoAnalyzer() :
         taxes = dfs[1]["납부금액"].str.replace(",","").str.replace(" ","").astype(float)
 
         self.file_path = file_path
-        self.company_name = dfs[0].values[2][1]
+        self.company_name = dfs[0].values[2][1].replace("\r","")
         self.taxes = taxes[taxes>0]
         self.multiple_taxes = False
         if len(self.taxes) > 1 :
