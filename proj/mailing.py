@@ -15,12 +15,15 @@ class MailSender() :
         self.msg = MIMEMultipart('mixed')
         self.to_address = None
 
+    def clear_mail(self) :
+        self.msg = MIMEMultipart('mixed') 
+
     def write_mail(self,to_address,subject,body) :
         self.msg['From'] = self.from_address
         self.msg['To'] = to_address
         self.to_address = to_address
         self.msg['Subject'] = subject
-        self.msg.attach(MIMEText(body,"html","utf-8"))
+        self.msg.attach(MIMEText(body.replace("\n","<br>"),"html","utf-8"))
 
     def attach_files(self,file_list : list) :
         for attachment in file_list :
