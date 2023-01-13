@@ -2,9 +2,12 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter.filedialog import askdirectory,askopenfilename
+from tkinter.messagebox import askyesno
 from configparser import ConfigParser
 import os 
 import platform
+
+from automate import run
 
 if platform.system()=='Darwin' :
     root_dir = "/User/seonwoolim/Desktop/"
@@ -121,7 +124,7 @@ class ConfigGUI:
 
     def submit_part(self) :
         # 5. submit
-        self.submit_button = ttk.Button(self.mainframe,command=self.make_config_file)
+        self.submit_button = ttk.Button(self.mainframe,command=self.run)
         self.submit_button.configure(text='확인')
         self.submit_button.place(anchor="nw", relx=0.44, rely=0.90, x=0, y=0)
 
@@ -132,6 +135,17 @@ class ConfigGUI:
     def get_pdf_dir(self) :
         file_dir= askdirectory(title='PDF 취합폴더 선택')
         self.pdf_dir.set(file_dir)
+
+    def run(self) :
+        self.make_config_file()
+        answer = askyesno(title='Automation',message='정보가 저장되었습니다. 메일을 보내시겠습니까?')
+        if answer :
+            config = ConfigParser()
+            config.read(self.config_path)
+            run(config)
+        else :
+            root.destroy()
+        
 
     def make_config_file(self) :
         mail_title = self.mail_title_entry.get()
