@@ -18,8 +18,6 @@ class ConfigGUI:
         # build ui
         self.mainframe = ttk.Frame(master)
         self.mainframe.configure(height=300, width=500)
-
-
         self.pdf_dir = tk.StringVar()
         self.contacts_path = tk.StringVar()
         self.mail_address_text = ""
@@ -48,6 +46,7 @@ class ConfigGUI:
         self.mail_body_part()
         self.login_part()
         self.submit_part()
+        self.mainframe.place(anchor="nw", x=0, y=0)
 
         # Main widget
         self.mainwindow = self.mainframe
@@ -87,7 +86,7 @@ class ConfigGUI:
         self.mail_title_label.place(anchor="nw", relx=0.1, rely=0.31, x=0, y=0)
         ## entry
         self.mail_title_entry = ttk.Entry(self.mainframe)
-        self.mail_title_entry.insert(0,self.mail_title_text)
+        self.mail_title_entry.insert(tk.END,self.mail_title_text)
         self.mail_title_entry.configure(justify="left")
         self.mail_title_entry.place(anchor="nw",relwidth=0.71,relx=0.2,rely=0.31,x=0,y=0)
 
@@ -98,14 +97,14 @@ class ConfigGUI:
         self.mail_body_label.place(anchor="nw", relx=0.1, rely=0.44, x=0, y=0)
         ## entry
         self.mail_body_entry = tk.Text(self.mainframe)
-        self.mail_body_entry.insert(0,self.mail_body_text)
+        self.mail_body_entry.insert(tk.END,self.mail_body_text)
         self.mail_body_entry.configure(height=10, width=50)
-        self.mail_body_entry.place(anchor="nw",relwidth=0.71,relx=0.2,rely=0.42,x=0,y=0)
+        self.mail_body_entry.place(anchor="nw",relwidth=0.71,relheight=0.4,relx=0.2,rely=0.42,x=0,y=0)
 
     def login_part(self) :
         # Address part
         self.mail_address_entry = ttk.Entry(self.mainframe)
-        self.mail_address_entry.insert(0,self.mail_address_text)
+        self.mail_address_entry.insert(tk.END,self.mail_address_text)
         self.mail_address_entry.place(anchor="nw",relwidth=0.28,relx=0.17,rely=0.21,x=0,y=0)
         self.mail_address_label = ttk.Label(self.mainframe)
         self.mail_address_label.configure(text='메일주소')
@@ -113,7 +112,7 @@ class ConfigGUI:
 
         # Password part
         self.password_entry = ttk.Entry(self.mainframe)
-        self.password_entry.insert(0,self.password_text)
+        self.password_entry.insert(tk.END,self.password_text)
         self.password_entry.place(anchor="nw",relwidth=0.28,relx=0.6,rely=0.21,x=0,y=0)
         self.password_label = ttk.Label(self.mainframe)
         self.password_label.configure(text='2차인증PW')
@@ -124,9 +123,7 @@ class ConfigGUI:
         # 5. submit
         self.submit_button = ttk.Button(self.mainframe,command=self.make_config_file)
         self.submit_button.configure(text='확인')
-        self.submit_button.place(anchor="nw", relx=0.42, rely=0.9, x=0, y=0)
-
-        self.mainframe.place(anchor="nw", x=0, y=0)
+        self.submit_button.place(anchor="nw", relx=0.44, rely=0.90, x=0, y=0)
 
     def get_contacts_path(self) :
         file_path = askopenfilename(title='contacts.csv 선택')
@@ -153,7 +150,7 @@ class ConfigGUI:
             'title' : mail_title,
             'body' : mail_body
         }
-        with open(self.config_dir,'w') as f:
+        with open(self.config_path,'w') as f:
             config_obj.write(f)
 
     def run(self):
@@ -164,5 +161,6 @@ class ConfigGUI:
 
 if __name__ == "__main__":
     root = tk.Tk()
+    root.geometry("500x300+250+100")
     app = ConfigGUI(root)
     app.run()
