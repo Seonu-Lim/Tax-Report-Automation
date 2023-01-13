@@ -2,7 +2,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter.filedialog import askdirectory,askopenfilename
-from tkinter.messagebox import askyesno
+from tkinter.messagebox import askyesno, showinfo
 from configparser import ConfigParser
 import os 
 import platform
@@ -35,7 +35,7 @@ class ConfigGUI:
             os.makedirs(config_dir)
         elif os.path.exists(self.config_path) :
             config = ConfigParser()
-            config.read(self.config_path)
+            config.read(self.config_path,encoding='utf-8')
             self.pdf_dir.set(config['directories']['pdf_directory'])
             self.contacts_path.set(config['directories']['contact_directory'])
             self.mail_address_text = config['login_info']['address']
@@ -141,8 +141,10 @@ class ConfigGUI:
         answer = askyesno(title='Automation',message='정보가 저장되었습니다. 메일을 보내시겠습니까?')
         if answer :
             config = ConfigParser()
-            config.read(self.config_path)
+            config.read(self.config_path,encoding='utf-8')
             run(config)
+            showinfo("finished","메일 전송이 완료되었습니다. 전송 실패 내역을 확인하세요.")
+
         else :
             root.destroy()
         
@@ -164,7 +166,7 @@ class ConfigGUI:
             'title' : mail_title,
             'body' : mail_body
         }
-        with open(self.config_path,'w') as f:
+        with open(self.config_path,'w',encoding='utf-8') as f:
             config_obj.write(f)
 
     def run(self):
