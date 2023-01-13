@@ -4,19 +4,12 @@ import configparser
 from proj.pdf_extract import *
 from proj.mailing import MailSender
 
-def run(
-    my_address : str,
-    my_psw : str,
-    contact_filepath : str,
-    pdf_filedir : str,
-    mail_title : str,
-    mail_body : str
-    ) :
+def run(config) :
 
     # Initialize and set working directory
-    address_dict = pd.read_csv(contact_filepath)[['Name','E-mail 1 - Value']].set_index("Name")['E-mail 1 - Value'].to_dict()
-    files = [os.path.join(pdf_filedir,f) for f in os.listdir(pdf_filedir) if f.endswith(".pdf")]
-    wd = initialize_working_directory(pdf_filedir)
+    address_dict = pd.read_csv(config['directories']['contact_directory'])[['Name','E-mail 1 - Value']].set_index("Name")['E-mail 1 - Value'].to_dict()
+    files = [os.path.join(config['directories']['pdf_directory'],f) for f in os.listdir(config['directories']['pdf_directory']) if f.endswith(".pdf")]
+    wd = initialize_working_directory(config['directories']['pdf_directory'])
 
     # Classify pdf files by corporate names
     for file in files :
@@ -27,7 +20,7 @@ def run(
     corps = os.listdir(wd)
 
     # Initialize MailSender
-    sender = MailSender(my_address,my_psw)
+    sender = MailSender(config['login_info']['address'],config['login_info']['password'])
     # loop corp lists
     for corp in corps :
         if corp == "CHECK_PLEASE" :
@@ -37,8 +30,8 @@ def run(
             sender.clear_mail()
             sender.write_mail(
                 to_address,
-                mail_title,
-                mail_body
+                config['mail_content']['title'],
+                config['mail_content']['body']
             )
             files = [os.path.join(os.path.join(wd,corp),i) for i in os.listdir(os.path.join(wd,corp))]
             sender.attach_files(files)
@@ -50,11 +43,4 @@ def run(
 if __name__=="__main__" :
     config = configparser.ConfigParser()
     config.read("./assets/info.cfg")
-    run(
-        config['login_info']['address'],
-        config['login_info']['password'],
-        config['directories']['contact_directory'],
-        config['directories']['pdf_directory'],
-        config['mail_content']['title'],
-        config['mail_content']['body']
-    )
+    run(config)
