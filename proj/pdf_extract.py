@@ -56,7 +56,7 @@ def move_file(tia:TaxInfoAnalyzer,working_dir) :
     
     if not os.path.exists(target_dir) :
         os.makedirs(target_dir)
-    new_file_name = f"{tia.company_name}_{tia.target_period}_부가가치세_납부서_{tia.due_date}"
+    new_file_name = f"{tia.company_name}_{tia.target_period}_부가가치세_납부서_{tia.due_date}.pdf"
     target_path = os.path.join(target_dir,new_file_name)
     shutil.copyfile(tia.file_path,target_path)
     
