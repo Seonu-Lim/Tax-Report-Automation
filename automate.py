@@ -19,9 +19,12 @@ def run(config) :
 
     # Classify pdf files by corporate names
     for file in files :
-        tia = TaxInfoAnalyzer(file)
-        move_file(tia,wd)
-
+        try :
+            tia = TaxInfoAnalyzer(file)
+            move_file(tia,wd)
+        except Exception as e:
+            print(f"Unable to move file. Exception Detail : {e}")
+        
     # get corp lists from pdf files
     corps = os.listdir(wd)
 
@@ -45,8 +48,3 @@ def run(config) :
             print(f"Successfully sent mail to {corp}.")
         else :
             print(f"No such corporate name as {corp} in csv file. Passing...")
-
-if __name__=="__main__" :
-    config = configparser.ConfigParser()
-    config.read("./assets/info.cfg")
-    run(config)
