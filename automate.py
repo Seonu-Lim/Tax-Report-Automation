@@ -9,6 +9,12 @@ def run(config) :
     # Initialize and set working directory
     address_dict = pd.read_csv(config['directories']['contact_directory'])[['Name','E-mail 1 - Value']].set_index("Name")['E-mail 1 - Value'].to_dict()
     files = [os.path.join(config['directories']['pdf_directory'],f) for f in os.listdir(config['directories']['pdf_directory']) if f.endswith(".pdf")]
+    
+    # Split files and update file list
+    for file in files :
+        split_file(file)
+    files = [os.path.join(config['directories']['pdf_directory'],f) for f in os.listdir(config['directories']['pdf_directory']) if f.endswith(".pdf")]
+    
     wd = initialize_working_directory(config['directories']['pdf_directory'])
 
     # Classify pdf files by corporate names
