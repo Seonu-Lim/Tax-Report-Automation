@@ -28,6 +28,7 @@ def split_file(file_path) :
     if len(reader.pages)>1 :
         for i in range(len(reader.pages)) :
             writer = PdfWriter()
+            writer.add_page(reader.pages[i])
             new_filename = file_path.replace(".pdf",f"_{i}.pdf")
             with open(new_filename,'wb') as fp :
                 writer.write(fp)
