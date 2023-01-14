@@ -144,6 +144,7 @@ class ConfigGUI:
             config.read(self.config_path,encoding='utf-8')
             run(config)
             showinfo("finished","메일 전송이 완료되었습니다. 전송 실패 내역을 확인하세요.")
+            root.destroy()
 
         else :
             root.destroy()
