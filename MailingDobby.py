@@ -63,8 +63,8 @@ class ConfigGUI:
         self.label1.configure(text='PDF파일위치')
         self.label1.place(anchor="nw", relx=0.0, rely=0.01, x=0, y=0)
         # entry
-        self.entry1 = ttk.Entry(self.frame,textvariable=self.pdf_dir)
-        self.entry1.place(anchor="nw", relwidth=0.5, relx=0.30, rely=0.01, x=0, y=0)
+        self.pdf_file_path_entry = ttk.Entry(self.frame,textvariable=self.pdf_dir)
+        self.pdf_file_path_entry.place(anchor="nw", relwidth=0.5, relx=0.30, rely=0.01, x=0, y=0)
         # button
         self.button1 = tk.Button(self.frame,command=self.get_pdf_dir)
         self.button1.configure(text='browse')
@@ -76,8 +76,8 @@ class ConfigGUI:
         self.label2.configure(text='contacts파일선택')
         self.label2.place(anchor="nw", relx=0.0, rely=0.09, x=0, y=0)
         # entry
-        self.entry2 = ttk.Entry(self.frame,textvariable=self.contacts_path)
-        self.entry2.place(anchor="nw", relwidth=0.5, relx=0.30, rely=0.09, x=0, y=0)
+        self.contacts_entry = ttk.Entry(self.frame,textvariable=self.contacts_path)
+        self.contacts_entry.place(anchor="nw", relwidth=0.5, relx=0.30, rely=0.09, x=0, y=0)
         # button
         self.button2 = tk.Button(self.frame,command = self.get_contacts_path)
         self.button2.configure(text='browse')
@@ -90,17 +90,17 @@ class ConfigGUI:
         self.label3 = ttk.Label(self.frame)
         self.label3.configure(text='메일주소')
         self.label3.place(anchor="nw", relx=0.0, rely=0.2, x=0, y=0)
-        self.entry3 = ttk.Entry(self.frame)
-        self.entry3.insert(tk.END,self.mail_address_text)
-        self.entry3.place(anchor="nw", relwidth=0.3, relx=0.11, rely=0.2, x=0, y=0)
+        self.mail_address_entry = ttk.Entry(self.frame)
+        self.mail_address_entry.insert(tk.END,self.mail_address_text)
+        self.mail_address_entry.place(anchor="nw", relwidth=0.3, relx=0.11, rely=0.2, x=0, y=0)
 
         # Password part
         self.label4 = ttk.Label(self.frame)
         self.label4.configure(text='2차인증PW')
         self.label4.place(anchor="nw", relx=0.5, rely=0.2, x=0, y=0)
-        self.entry4 = ttk.Entry(self.frame)
-        self.entry4.insert(tk.END,self.password_text)
-        self.entry4.place(anchor="nw", relwidth=0.3, relx=0.65, rely=0.2, x=0, y=0)
+        self.password_entry = ttk.Entry(self.frame)
+        self.password_entry.insert(tk.END,self.password_text)
+        self.password_entry.place(anchor="nw", relwidth=0.3, relx=0.65, rely=0.2, x=0, y=0)
 
     def mail_title_part(self) :
         # label
@@ -109,9 +109,9 @@ class ConfigGUI:
         self.label5.place(anchor="nw", relx=0, rely=0.3, x=0, y=0)
 
         # entry
-        self.entry5 = ttk.Entry(self.frame)
-        self.entry5.insert(tk.END,self.mail_title_text)
-        self.entry5.place(anchor="nw", relwidth=0.8, relx=0.11, rely=0.3, x=0, y=0)
+        self.mail_title_entry = ttk.Entry(self.frame)
+        self.mail_title_entry.insert(tk.END,self.mail_title_text)
+        self.mail_title_entry.place(anchor="nw", relwidth=0.8, relx=0.11, rely=0.3, x=0, y=0)
         
         
     def mail_body_part(self) :
@@ -120,10 +120,10 @@ class ConfigGUI:
         self.label7.configure(text='메일내용')
         self.label7.place(anchor="nw", relx=0, rely=0.4, x=0, y=0)
         # entry
-        self.text1 = tk.Text(self.frame)
-        self.text1.insert(tk.END,self.mail_body_text)
-        self.text1.configure(height=10, width=50)
-        self.text1.place(anchor="nw",relheight=0.5,relwidth=0.8,relx=0.11,rely=0.4,x=0,y=0)
+        self.mail_text_entry = tk.Text(self.frame)
+        self.mail_text_entry.insert(tk.END,self.mail_body_text)
+        self.mail_text_entry.configure(height=10, width=50)
+        self.mail_text_entry.place(anchor="nw",relheight=0.5,relwidth=0.8,relx=0.11,rely=0.4,x=0,y=0)
 
     def analyze_button(self) :
         button3 = ttk.Button(self.frame , command = self.analyze)
