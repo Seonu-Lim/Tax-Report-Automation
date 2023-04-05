@@ -79,7 +79,7 @@ class ConfigGUI:
         self.entry2 = ttk.Entry(self.frame,textvariable=self.contacts_path)
         self.entry2.place(anchor="nw", relwidth=0.5, relx=0.30, rely=0.09, x=0, y=0)
         # button
-        self.button2 = tk.Button(self.frame,self.get_contacts_path)
+        self.button2 = tk.Button(self.frame,command = self.get_contacts_path)
         self.button2.configure(text='browse')
         self.button2.place(anchor="nw", relx=0.85, rely=0.09, x=0, y=0)
 
@@ -126,16 +126,14 @@ class ConfigGUI:
         self.text1.place(anchor="nw",relheight=0.5,relwidth=0.8,relx=0.11,rely=0.4,x=0,y=0)
 
     def analyze_button(self) :
-        button3 = ttk.Button(self.frame)
+        button3 = ttk.Button(self.frame , command = self.analyze)
         button3.configure(text='파일분류')
         button3.place(anchor="nw", relx=0.20, rely=0.95, x=0, y=0)
 
     def send_mail_button(self) :
-        button4 = ttk.Button(self.frame)
+        button4 = ttk.Button(self.frame , command = self.send)
         button4.configure(text='메일전송')
         button4.place(anchor="nw", relx=0.65, rely=0.95, x=0, y=0)
-
-
 
 
     def get_contacts_path(self) :
