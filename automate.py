@@ -4,10 +4,9 @@ import configparser
 from proj.pdf_extract import *
 from proj.mailing import MailSender
 
-def run(config) :
+def analyze_pdf(config) :
 
     # Initialize and set working directory
-    address_dict = pd.read_csv(config['directories']['contact_directory'])[['Name','E-mail 1 - Value']].set_index("Name")['E-mail 1 - Value'].to_dict()
     files = [os.path.join(config['directories']['pdf_directory'],f) for f in os.listdir(config['directories']['pdf_directory']) if f.endswith(".pdf")]
     
     # Split files and update file list
@@ -24,10 +23,15 @@ def run(config) :
             move_file(tia,wd)
         except Exception as e:
             print(f"Unable to move file. Exception Detail : {e}")
-        
+
+    return wd
+
+def send_mail(config,wd) :
+
+    # get address dict from config
+    address_dict = pd.read_csv(config['directories']['contact_directory'])[['Name','E-mail 1 - Value']].set_index("Name")['E-mail 1 - Value'].to_dict()
     # get corp lists from pdf files
     corps = os.listdir(wd)
-
     # Initialize MailSender
     sender = MailSender(config['login_info']['address'],config['login_info']['password'])
     # loop corp lists
@@ -48,3 +52,7 @@ def run(config) :
             print(f"Successfully sent mail to {corp}.")
         else :
             print(f"No such corporate name as {corp} in csv file. Passing...")
+
+def run(config) :
+    wd = analyze_pdf(config)
+    send_mail(config,wd)
