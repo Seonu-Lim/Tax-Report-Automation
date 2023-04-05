@@ -120,10 +120,10 @@ class ConfigGUI:
         self.label7.configure(text='메일내용')
         self.label7.place(anchor="nw", relx=0, rely=0.4, x=0, y=0)
         # entry
-        self.mail_text_entry = tk.Text(self.frame)
-        self.mail_text_entry.insert(tk.END,self.mail_body_text)
-        self.mail_text_entry.configure(height=10, width=50)
-        self.mail_text_entry.place(anchor="nw",relheight=0.5,relwidth=0.8,relx=0.11,rely=0.4,x=0,y=0)
+        self.mail_body_entry = tk.Text(self.frame)
+        self.mail_body_entry.insert(tk.END,self.mail_body_text)
+        self.mail_body_entry.configure(height=10, width=50)
+        self.mail_body_entry.place(anchor="nw",relheight=0.5,relwidth=0.8,relx=0.11,rely=0.4,x=0,y=0)
 
     def analyze_button(self) :
         button3 = ttk.Button(self.frame , command = self.analyze)
