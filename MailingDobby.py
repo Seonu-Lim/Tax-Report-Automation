@@ -186,5 +186,6 @@ class ConfigGUI:
 
 if __name__ == "__main__":
     root = tk.Tk()
+    root.geometry("600x500+250+100")
     app = ConfigGUI(root)
     app.run()
